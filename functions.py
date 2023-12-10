@@ -44,6 +44,13 @@ def home(serial, velocity):
 	#Close your Phidgets once the program is done.
 	dcMotor0.close()
 	digitalInput0.close()
-	
+
+# Digital Input State Check
 def onStateChange(self, state):
 	print("State: " + str(state))
+
+def gripper_open():
+	control(146491, -1, 2)
+
+def gripper_close():
+	control(146491, 1, 2)
