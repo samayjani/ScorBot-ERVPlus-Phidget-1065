@@ -1,78 +1,104 @@
 from Phidget22.Phidget import *
 from Phidget22.Devices.DCMotor import *
 import time
-import keyboard
 import sys
+import keyboard
+from functions import control
+from homing import homing
 
 
-#Declare any event handlers here. These will be called every time the associated event occurs.
+def manual():
+	# Start Manual Mode
+	print("===Manual Mode Activated===\n")
+	print("Key R/r: Right Turn")
+	print("Key L/l: Left Turn")
+	print("Key U/u: moving Up")
+	print("Key D/d: moving Down")
+	print("Key F/f: moving Forward")
+	print("Key B/b: moving Backward")
+	print("Key o/c: Open or Close Gripper")
+	print("Key 0: End Manual Mode\n")
 
-def control(serial, velocity, duration):
-	#Create your Phidget channels
-	dcMotor0 = DCMotor()
+	while True:
+		# Base Movement: Left Right
+		if keyboard.read_key() == "L":
+			print("go Left")
+			control(146552, -1, 2)
+			# sys.exit()
+		if keyboard.read_key() == "R":
+			print("go Right")
+			control(146552, 1, 2)
+			# sys.exit()
+		if keyboard.read_key() == "l":
+			print("go little Left")
+			control(146552, -1, 1)
+			# sys.exit()
+		if keyboard.read_key() == "r":
+			print("go little Right")
+			control(146552, 1, 1)
+			# sys.exit()
+		
+		# Elbow Movement: Up Down
+		if keyboard.read_key() == "U":
+			print("go Up")
+			control(146520, 1, 2)
+			# sys.exit()
+		if keyboard.read_key() == "D":
+			print("go Down")
+			control(146520, -1, 2)
+			# sys.exit()
+		if keyboard.read_key() == "u":
+			print("go little Up")
+			control(146520, 1, 1)
+			# sys.exit()
+		if keyboard.read_key() == "d":
+			print("go little Down")
+			control(146520, -1, 1)
+			# sys.exit()
 
-	#Set addressing parameters to specify which channel to open (if any)
-	dcMotor0.setDeviceSerialNumber(serial)
+		# Shoulder Movement: Forward Backward
+		if keyboard.read_key() == "F":
+			print("go Forward")
+			control(146627, -1, 2)
+			# sys.exit()
+		if keyboard.read_key() == "B":
+			print("go Backward")
+			control(146627, 1, 4)
+			# sys.exit()
+		if keyboard.read_key() == "f":
+			print("go little Forward")
+			control(146627, -1, 1)
+			# sys.exit()
+		if keyboard.read_key() == "b":
+			print("go little Backward")
+			control(146627, 1, 1)
+			# sys.exit()
 
-	#Open your Phidgets and wait for attachment
-	dcMotor0.openWaitForAttachment(5000)
+		# Gripper: Open Close
+		if keyboard.read_key() == "o":
+			print("Open Gripper")
+			control(146491, -1, 2)
+			# sys.exit()
+		if keyboard.read_key() == "c":
+			print("Close Gripper")
+			control(146491, 1, 2)
+			# sys.exit()
+		if keyboard.read_key() == "O":
+			print("Open Gripper")
+			control(146491, -1, 2)
+			# sys.exit()
+		if keyboard.read_key() == "C":
+			print("Close Gripper")
+			control(146491, 1, 2)
+			# sys.exit()
+		
+		if keyboard.read_key() == "H":
+				print("Home")
+				homing()
+				# sys.exit()
 
-	#Do stuff with your Phidgets here or in your event handlers.
-	dcMotor0.setTargetVelocity(velocity)
-	time.sleep(duration)
-
-	#Close your Phidgets once the program is done.
-	dcMotor0.close()
-
-while True:
-	if keyboard.read_key() == "l":
-		print("go Left")
-		control(146552, -1, 2)
-		# sys.exit()
-	if keyboard.read_key() == "r":
-		print("go Right")
-		control(146552, 1, 2)
-		# sys.exit()
-	if keyboard.read_key() == "f":
-		print("go Forward")
-		control(146520, 1, 2)
-		# sys.exit()
-	if keyboard.read_key() == "b":
-		print("go Backward")
-		control(146520, -1, 2)
-		# sys.exit()
-	if keyboard.read_key() == "u":
-		print("go Up")
-		control(146627, 1, 4)
-		# sys.exit()
-	if keyboard.read_key() == "d":
-		print("go Down")
-		control(146627, -1, 2)
-		# sys.exit()
-	if keyboard.read_key() == "o":
-		print("Open Gripper")
-		control(146491, -1, 2)
-		# sys.exit()
-	if keyboard.read_key() == "c":
-		print("Close Gripper")
-		control(146491, 1, 2)
-		# sys.exit()
-	if keyboard.read_key() == "0":
-		print("Finish Program")
-		sys.exit()
-
-
-# control(146552, 0.5, 10)
-# control(146627, -0.5, 28 * 10)
-# control(146520, 1, 35 * 10)
-# control(146640, 0.5, 12 *10)
-# control(146491, -0.5, 35* 10)
-
-# control(146552, 1, 55 * 90)
-# control(146627, 1, 55 * 120)
-# control(146520, 1, 40 * 130)
-# control(146640, 1, 30 *130)
-# control(146491, -1, 3000)
-
-# turn_left()
-
+		
+		# End Program
+		if keyboard.read_key() == "0":
+			print("Finish Program")
+			sys.exit()
