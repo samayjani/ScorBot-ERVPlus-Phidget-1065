@@ -6,8 +6,6 @@ def by_angles():
 	"Enter the angles for Base, Shoulder, Elbow Link(Space-Separated): ").strip().split()))[:3]
   print('Angles Entered are', angles) 
   
-  
-  
   #Base Angle
   if angles[0] > 0:
     control(146552, 1, .055 * angles[0]) 

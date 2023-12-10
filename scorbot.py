@@ -33,6 +33,7 @@ while True:
 			gripper_open()
 			by_angles()
 			gripper_close()
+			print("Place Position Define:\n")
 			by_angles()
 			gripper_open()
 			homing()
